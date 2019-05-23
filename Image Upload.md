@@ -22,6 +22,12 @@ the 1st value copied to replace in secrets.json with "AWS_KEY":
 
 the 2nd value copied to replace in secrets.json with "AWS_SECRET":
 
+After I need to change in the s3.js file the name of the bucket: 
+
+so in the file: 
+
+bucket: 'spicedling' (now - but if I got new one I need to change it)
+
 You can create your own [Amazon Web Services account](https://aws.amazon.com/free/) and use 5GB of S3 storage for free for one year (as well as many other AWS offerings with similar limitations). However, to create your account you have to enter a credit card to cover expenses if you go over the free tier limits. If you would rather not do that, you can use an account that has already been set up (see your friendly neighborhood SPICED instructor for credentials). If you do set up your own account, what you'll have to do afterwards is retrieve your credentials from the 'Security Credentials' section of the management console (or, as is advised when you navigate to that section, create a subuser that only has access to S3 and retrieve that subuser's credentials using the IAM service) and also create an S3 bucket. When you create a bucket, you will be able to select a region for it. If you select a region other than US East (Virginia), you may encounter a delay before you can access the bucket in the method described below. Because of an [unresolved knox issue](https://github.com/Automattic/knox/issues/254), you should NOT select the EU (Frankfurt) region.
 
 ## knox

@@ -3,10 +3,11 @@ const app = express();
 const db = require('./utils/db');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const s3 = require('./s3');
+const path = require('path');
+const uidSafe = require('uid-safe');
 
-app.use(express.static('./public'));
-/////////////////////////
-//copy paste from class:
+
 var diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
         callback(null, __dirname + '/uploads');
@@ -25,27 +26,47 @@ var uploader = multer({
     }
 });
 
-app.post('/upload,', uploader.single('file'), function(req, res) {
-    // If nothing went wrong the file is already in the uploads directory
-    if (req.file) {
-        res.json({
-            success: true
-        });
-    } else {
-        res.json({
-            success: false
-        });
-    }
-});
-//until here copy pase in class
-///////////////////////
+app.use(express.static('./public'));
+
 app.get('/imageboard', (req, res) => {
     db.getInfo().then(result => {
-        console.log('this is result:', result);
+        //console.log('this is result:', result);
         res.json(result.rows);
     }).catch(error => {
         console.log(error);
     });
 });
+
+app.post('/upload', uploader.single('file'),
+        s3.upload, function(req, res) {
+            let { title, description, username } = req.body;
+            let url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
+
+            db.addData(url, username, title, description)
+                .then(function() {
+                    const imagePush = {
+                        description: description,
+                        title: title,
+                        url: url,
+                        username: username,
+                        success: true
+                        };
+                            //console.log('imagePush :', imagePush);
+                        res.json(imagePush);
+                }).catch(function(err) {
+                    console.log(err);
+                });
+        // if (req.file) {
+        //     res.json({
+        //         success: true
+        //     });
+        // } else {
+        //     res.json({
+        //         success: false
+        //     });
+        // }
+});//uploader.single function close
+
+
 
 app.listen(8080, () => console.log('!I vue js!'));
