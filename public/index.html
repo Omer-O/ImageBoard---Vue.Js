@@ -1,10 +1,34 @@
 <!doctype html>
 <html>
 <head>
-    <title></title>
+    <title>Image-Board</title>
+    <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 <body>
+    <div id="main">
+
+        <h1>welcome to my site, {{ name }}</h1>
+        <header>
+            <form method="POST">
+                <input v-model='form.title' type="text" name="title" placeholder="title">
+                <input v-model='form.description' type="text" name="description" placeholder="image description">
+                <input v-model='form.username' type="text" name="username" placeholder="enter user name">
+                <input type="file" name="file" accept='image/*' @change='handleFileChange'>
+                <button @click.prevent.default='uploadFile' type="button" name="button">UPLOAD</button>
+            </form>
+        </header>
+
+        <div class="board">
+            <div class="card" v-for='image in imageboard'>
+                 <img :src="image.url">
+                 <h2> {{image.title}} </h2>
+            </div>
+        </div>
+    </div>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
+<!---->
