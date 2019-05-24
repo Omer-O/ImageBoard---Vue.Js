@@ -40,11 +40,16 @@
                 formData.append('description', this.form.description);
                     //console.log('formData:', formData);
 
+                var self = this;
                 axios.post('/upload', formData)
                      .then(function(resp) {
                          //console.log('resp in POST/upload', resp.data);
-                         var self = this;
-                         self.imageboard.unshift(resp.data);
+                         self.imageboard.unshift({
+                            url: resp.data.url,
+                            description: resp.data.description,
+                            title: resp.data.title,
+                            username: resp.data.username
+                         });
                      }).catch(function (err) {
                          console.log("error in axios POST Upload:", err);
                      });//catch close.

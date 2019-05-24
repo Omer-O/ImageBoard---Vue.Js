@@ -21,8 +21,9 @@ body {
 }
 
 img {
-    width: 500px;
-    height: 400px;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
     border-radius: 20px;
 }
 

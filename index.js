@@ -41,7 +41,6 @@ app.post('/upload', uploader.single('file'),
         s3.upload, function(req, res) {
             let { title, description, username } = req.body;
             let url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
-
             db.addData(url, username, title, description)
                 .then(function() {
                     const imagePush = {
@@ -51,7 +50,7 @@ app.post('/upload', uploader.single('file'),
                         username: username,
                         success: true
                         };
-                            //console.log('imagePush :', imagePush);
+                        //console.log('imagePush :', imagePush);
                         res.json(imagePush);
                 }).catch(function(err) {
                     console.log(err);

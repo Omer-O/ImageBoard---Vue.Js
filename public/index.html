@@ -13,9 +13,11 @@
                 <input v-model='form.title' type="text" name="title" placeholder="title">
                 <input v-model='form.description' type="text" name="description" placeholder="image description">
                 <input v-model='form.username' type="text" name="username" placeholder="enter user name">
-                <input class='browse-btn' type="file" name="file" accept='image/*' @change='handleFileChange'>
-
-                <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
+                <label class="file">
+                    <input class='browse-btn' type="file" name="file" accept='image/*' @change='handleFileChange'>
+                    <span class="file-sustom"></span>
+                    <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
+                </label>
             </form>
         </header>
 
