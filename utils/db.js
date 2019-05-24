@@ -14,6 +14,6 @@ module.exports.addData = function addData(
     url, username, title, description) {
         return db.query(
             `INSERT INTO images (url, username, title, description)
-             VALUES ($1, $2, $3, $4)`,
+             VALUES ($1, $2, $3, $4) RETURNING id`,
              [url, username, title, description]);
 };//addData close.

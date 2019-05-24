@@ -7,6 +7,7 @@ const s3 = require('./s3');
 const path = require('path');
 const uidSafe = require('uid-safe');
 
+app.use(bodyParser.json());
 
 var diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -42,16 +43,17 @@ app.post('/upload', uploader.single('file'),
             let { title, description, username } = req.body;
             let url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
             db.addData(url, username, title, description)
-                .then(function() {
-                    const imagePush = {
+                .then(result => {
+                    const image = {
+                        id: result.rows[0].id,
                         description: description,
                         title: title,
                         url: url,
                         username: username,
                         success: true
-                        };
-                        //console.log('imagePush :', imagePush);
-                        res.json(imagePush);
+                        }
+                        console.log('imagePush :', image);
+                        res.json(image);
                 }).catch(function(err) {
                     console.log(err);
                 });

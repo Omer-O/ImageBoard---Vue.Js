@@ -7,27 +7,45 @@
 <body>
     <div id="main">
 
-        <h1>welcome to my site, {{ name }}</h1>
+
         <header>
+            <h1>welcome to my site, {{ name }}</h1>
             <form>
                 <input v-model='form.title' type="text" name="title" placeholder="title">
                 <input v-model='form.description' type="text" name="description" placeholder="image description">
                 <input v-model='form.username' type="text" name="username" placeholder="enter user name">
-                <label class="file">
-                    <input class='browse-btn' type="file" name="file" accept='image/*' @change='handleFileChange'>
-                    <span class="file-sustom"></span>
-                    <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
-                </label>
+                <input class='browse-btn' type="file" name="file" accept='image/*' @change='handleFileChange'>
+                <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
             </form>
         </header>
 
         <div class="board">
-            <div class="card" v-for='image in imageboard'>
+            <div class="card"
+                 v-for='image in imageboard'
+                 @click='toggleimageModal(image.id)'
+            >
+
                  <img :src="image.url">
                  <h2> {{image.title}} </h2>
             </div>
         </div>
+
+        <image-modal
+                :name='name'
+                :image-clicked='imageClicked'
+
+                v-if="imageClicked"
+                >
+        </image-modal>
     </div>
+    <script id="image-template" type="text/x-template">
+<!--the id is important - we need to pass it back to the modal!!
+here will come all the HTML that belongs to the modal!! -->
+        <div class="image-container">
+            <h1>this is a cute Imgae, {{ imageName }}</h1>
+            <p>lorem</p>
+        </div>
+    </script>
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
