@@ -33,7 +33,7 @@
         <image-modal
                 :name='name'
                 :image-clicked='imageClicked'
-
+                :imagePopUp='imagePopUp'
                 v-if="imageClicked"
                 >
         </image-modal>
@@ -41,8 +41,9 @@
     <script id="image-template" type="text/x-template">
 <!--the id is important - we need to pass it back to the modal!!
 here will come all the HTML that belongs to the modal!! -->
-        <div class="image-container">
-            <h1>this is a cute Imgae, {{ imageName }}</h1>
+        <div class="pop-container">
+            <img :src="imagePopUp.url">
+            <h1>this is a cute Imgae, {{ imagePopUp.title }}</h1>
             <p>lorem</p>
         </div>
     </script>

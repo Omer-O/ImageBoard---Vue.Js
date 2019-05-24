@@ -66,8 +66,24 @@ app.post('/upload', uploader.single('file'),
         //         success: false
         //     });
         // }
-});//uploader.single function close
-
-
+});//uploader.single function c lose
+app.get('/get-image-info/:id', (req, res) => {
+    db.getPopUpInfo(req.params.id).then(result => {
+        let { description, title, url, username, created_at } =
+            result.rows[0];
+                const popUp = {
+                    description: description,
+                    title: title,
+                    url: url,
+                    username: username,
+                    created_at: created_at,
+                    success: true
+                    }
+                    console.log('Im popUp:', popUp);
+                    res.json(popUp);
+        }).catch(function(err) {
+            console.log(err);
+        });
+});
 
 app.listen(8080, () => console.log('!I vue js!'));

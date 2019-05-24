@@ -7,7 +7,7 @@
     //and then to tell the component where to find
     //the html
     template: "#image-template",
-    props: ['name', 'imageClicked'],
+    props: ['name', 'imageClicked', 'imagePopUp'],
     //props = allow to accsses to the DATA of the "new Vue"
     //        what we pass to props is the property DATA
     //         that we want to accsses.
@@ -16,6 +16,7 @@
         //      because we want it to return an object.
         //      it handels the data same as in 'new Vue'!
         return {
+            imagePopUp: [],
             imageName: 'Buna'
             //Render = it we do the same as
             //      "new Vue" {{ }} but INSIDE THE SCRIPT
@@ -24,13 +25,18 @@
     },//Data close
     mounted: function () {
         console.log('this is mounted of Vue component:', this);
-        //we can do the axios.get in 2 ways:
-    //  #1:
-    //     axios.get('/get-image-info', {
-    //     imageClicked: this.imageClicked
-    // }) //axios.get close
+    //we can do the axios.get in 2 ways:
+    //#1:
+    var self = this;
+        axios.get('/get-image-info/' + this.imageClicked)
+            .then(function(resp) {
+                self.imagePopUp = resp.data;
+                console.log('self.imagePopUp:', self.imagePopUp);
+            });
     //  #2:
-        axios.get('/get-image-info/' + this.imageClicked);
+    //  axios.get('/get-image-info', {
+    //      imageClicked: this.imageClicked
+    // })
     }//mounted close
 });// Vue component close
 
@@ -63,37 +69,36 @@
                     //here we put the opposite - so when we CLICK
                     //the condition will set to true/false - depands
                     //what we declaired in the view INSTANCE!
-
-                //#2 Target the animal clicked and store it:
+                //#2
+                // Target image & store data by click image:
                 console.log('image:', image);
-                    //target the animalWasClicked in the Vue INSTANCE data
-                    //animal reffers to the animal that the user clicked.
+                //target the imageClicked in the Vue INSTANCE data
+                //image reffers to the image that the user clicked.
                 this.imageClicked = image;
                 console.log('this is Vue INSTANCE:', this);
-            },//toggleAnimalModal close.
+            },//toggleimageModal close.
+
             handleFileChange: function(e) {
-                    // console.log('handleFileChange e', e.target.files[0]);
-                    // console.log('this:', this);
                 this.form.file = e.target.files[0]
             },//handleFileChange closes
 
             uploadFile: function(e) {
                 e.preventDefault();
-                    //console.log('uploadFile running!');
+                //console.log('uploadFile running!');
                 var formData = new FormData();
 
                 formData.append('file', this.form.file);
                 formData.append('title', this.form.title);
                 formData.append('username', this.form.username);
                 formData.append('description', this.form.description);
-                    //console.log('formData:', formData);
+                //console.log('formData:', formData);
 
                 var self = this;
                 axios.post('/upload', formData)
                      .then(function(resp) {
                          console.log('resp in POST/upload', resp.data);
                          self.imageboard.unshift({
-                             id: resp.data.id,
+                            id: resp.data.id,
                             url: resp.data.url,
                             description: resp.data.description,
                             title: resp.data.title,

@@ -4,6 +4,16 @@ body {
     letter-spacing: 0.09em;
 }
 
+.pop-container {
+    z-index: 999999999999999;
+    width: 50%;
+    height: 80%;
+    background-color: rgba(22,22,22,0.5);
+    position: fixed;
+    top: calc(20% - 25px);
+    left: calc(30% - 50px);
+}
+
 .board {
     display: flex;
     align-items: flex-start;

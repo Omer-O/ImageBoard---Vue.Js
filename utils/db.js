@@ -17,3 +17,7 @@ module.exports.addData = function addData(
              VALUES ($1, $2, $3, $4) RETURNING id`,
              [url, username, title, description]);
 };//addData close.
+
+module.exports.getPopUpInfo = function getPopUpInfo(id) {
+    return db.query(`SELECT * FROM images WHERE id=$1`, [id]);
+};//getInfo close.
