@@ -9,7 +9,7 @@
 
 
         <header>
-            <h1>welcome to my site, {{ name }}</h1>
+            <h1>{{ name }}</h1>
             <form>
                 <input v-model='form.title' type="text" name="title" placeholder="title">
                 <input v-model='form.description' type="text" name="description" placeholder="image description">
@@ -38,16 +38,22 @@
                 >
         </image-modal>
     </div>
+
     <script id="image-template" type="text/x-template">
 <!--the id is important - we need to pass it back to the modal!!
 here will come all the HTML that belongs to the modal!! -->
         <div class="pop-container">
-            <img :src="imagePopUp.url">
-            <h1>this is a cute Imgae, {{ imagePopUp.title }}</h1>
-            <p>lorem</p>
+            <img class="pop-img" :src="imagePopUp.url">
+            <h1>{{ imagePopUp.title }}</h1>
+            <h2>{{ imagePopUp.description }}</h2>
+            <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
+            <input class='pop-input' v-model='username' type="text" name="username">
+            <textarea class='pop-comment' v-model='comment' type="text" name="description" placeholder="comment"></textarea>
+            <button class="comment-btn" @click='upload-comment' name="button">SUBMIT</button>
+
+
         </div>
     </script>
-
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>

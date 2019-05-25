@@ -2,43 +2,40 @@
 (function() {
 
     Vue.component('image-modal', {
-    //#2
-    //define the HTML for the modal in the HTML file.
-    //and then to tell the component where to find
-    //the html
-    template: "#image-template",
-    props: ['name', 'imageClicked', 'imagePopUp'],
-    //props = allow to accsses to the DATA of the "new Vue"
-    //        what we pass to props is the property DATA
-    //         that we want to accsses.
-    data: function() {
-        //data = we write data as a function
-        //      because we want it to return an object.
-        //      it handels the data same as in 'new Vue'!
-        return {
-            imagePopUp: [],
-            imageName: 'Buna'
-            //Render = it we do the same as
-            //      "new Vue" {{ }} but INSIDE THE SCRIPT
-            //      of component in the HTML
-        }
-    },//Data close
-    mounted: function () {
-        console.log('this is mounted of Vue component:', this);
-    //we can do the axios.get in 2 ways:
-    //#1:
-    var self = this;
-        axios.get('/get-image-info/' + this.imageClicked)
-            .then(function(resp) {
-                self.imagePopUp = resp.data;
-                console.log('self.imagePopUp:', self.imagePopUp);
-            });
-    //  #2:
-    //  axios.get('/get-image-info', {
-    //      imageClicked: this.imageClicked
-    // })
-    }//mounted close
-});// Vue component close
+        template: "#image-template",
+        //template: = define the HTML for the modal in
+                    //the HTML file and taregt the ID given.
+        props: ['name', 'imageClicked'],
+        //props = allow to accsses to the DATA of the "new Vue"
+        //        what we pass to props is the property DATA
+        //        that we want to accsses.
+        data: function() {
+            //data = we write data as a function
+            //      because we want it to return an object.
+            //      it handels the data same as in 'new Vue'!
+            return {
+                imagePopUp: [],
+                //imageName: 'Buna'
+                //Render = the same as "new Vue" {{}} but INSIDE
+                //        THE SCRIPT of component in the HTML
+            }
+        },//Data close
+        mounted: function () {
+            console.log('this is mounted of Vue component:', this);
+        //we can do the axios.get in 2 ways:
+        //#1:
+        var self = this;
+            axios.get('/get-image-info/' + this.imageClicked)
+                .then(function(resp) {
+                    self.imagePopUp = resp.data;
+                    //console.log('self.imagePopUp:', self.imagePopUp);
+                });
+        //  #2:
+        //  axios.get('/get-image-info', {
+        //      imageClicked: this.imageClicked
+        // })
+        }//mounted close
+    });// Vue component close
 
     var vm = new Vue({
         el: '#main',
@@ -96,14 +93,14 @@
                 var self = this;
                 axios.post('/upload', formData)
                      .then(function(resp) {
-                         console.log('resp in POST/upload', resp.data);
+                         //console.log('resp in POST/upload', resp.data);
                          self.imageboard.unshift({
                             id: resp.data.id,
                             url: resp.data.url,
                             description: resp.data.description,
                             title: resp.data.title,
                             username: resp.data.username
-                        });console.log('this is resp.data of post', resp.data);
+                        });
                      }).catch(function (err) {
                          console.log("error in axios POST Upload:", err);
                      });//catch close.

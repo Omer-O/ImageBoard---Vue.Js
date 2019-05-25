@@ -4,17 +4,18 @@ body {
     letter-spacing: 0.09em;
 }
 
-.pop-container {
-    z-index: 999999999999999;
-    width: 50%;
-    height: 80%;
-    background-color: rgba(22,22,22,0.5);
+header {
+    display: flex;
     position: fixed;
-    top: calc(20% - 25px);
-    left: calc(30% - 50px);
+    justify-content: center;
+    flex-direction: row;
+    border: black;
+    width: 100%;
+    background: #4caf50;
 }
 
 .board {
+    background: beige;
     display: flex;
     align-items: flex-start;
     flex-flow: row wrap;
@@ -24,29 +25,30 @@ body {
 }
 
 .card {
+    background: #e7f0f5cc;;
+    height: 500px;
+    width: 500px;
     border: black 2px solid;
     border-radius: 20px;
     padding: 15px;
+    margin: 40px;
     justify-content: space-around;
-    box-shadow: 0 1px 3px rgb(0, 0, 0), 0 1px 5px 1px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 15px rgb(0, 0, 3), 0 10px 3px 1px rgba(4, 5, 6, 0.24);
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 img {
-    width: 500px;
-    height: 400px;
+
+    width: 485px;
+    height: 390px;
+    border: black 2px solid;
     border-radius: 20px;
+
 }
 
-header {
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    flex-direction: row;
-    border: black;
-    width: 100%;
-    background: aquamarine;
-
+img:hover {
+    color: lightgrey;
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
 }
 
 form {
@@ -96,4 +98,27 @@ button {
 button:hover {
     color: lightgrey;
     box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+ }
+
+ .pop-container {
+     z-index: 999999999999999;
+     border-radius: 30px;
+     width: 37%;
+     height: 86%;
+     color: white;
+     background-color: rgba(22, 22, 22, 0.72);
+     position: fixed;
+     top: calc(15% - 25px);
+     left: calc(34% - 50px);
+     text-align: center;
+ }
+
+ textarea.pop-comment {
+     width: 670px;
+     height: 45px;
+     margin: 20px 6.38px 15px 15px;
+ }
+
+ img.pop-img {
+
  }
