@@ -14,6 +14,7 @@
             //      because we want it to return an object.
             //      it handels the data same as in 'new Vue'!
             return {
+                xClicked: '',
                 imagePopUp: [],
                 //imageName: 'Buna'
                 //Render = the same as "new Vue" {{}} but INSIDE

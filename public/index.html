@@ -33,27 +33,28 @@
         <image-modal
                 :name='name'
                 :image-clicked='imageClicked'
-                :imagePopUp='imagePopUp'
                 v-if="imageClicked"
                 >
         </image-modal>
     </div>
-
+    <!-- :image-pop-up='imagePopUp' -->
     <script id="image-template" type="text/x-template">
 <!--the id is important - we need to pass it back to the modal!!
 here will come all the HTML that belongs to the modal!! -->
-        <div class="pop-container">
-            <img class="pop-img" :src="imagePopUp.url">
-            <h1>{{ imagePopUp.title }}</h1>
-            <h2>{{ imagePopUp.description }}</h2>
-            <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
-            <input class='pop-input' v-model='username' type="text" name="username">
-            <textarea class='pop-comment' v-model='comment' type="text" name="description" placeholder="comment"></textarea>
-            <button class="comment-btn" @click='upload-comment' name="button">SUBMIT</button>
-
-
+        <div id="popup" class="overlay">
+            <div class="pop-container">
+                <a class="close" href="#">&times;</a>
+                <img class="pop-img" :src="imagePopUp.url">
+                <h1>{{ imagePopUp.title }}</h1>
+                <h2>{{ imagePopUp.description }}</h2>
+                <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
+                <input class='pop-input' v-model='username' type="text" name="username">
+                <textarea class='pop-comment' v-model='comment' type="text" name="description" placeholder="comment"></textarea>
+                <button class="comment-btn" @click='upload-comment' name="button">SUBMIT</button>
+            </div>
         </div>
     </script>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
