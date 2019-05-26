@@ -38,9 +38,8 @@ header {
 }
 
 img {
-
-    width: 485px;
-    height: 390px;
+    max-width: 100%;
+    height: 75%;
     border: black 2px solid;
     border-radius: 20px;
 
@@ -53,6 +52,7 @@ img:hover {
 
 form {
     display: flex;
+
 }
 
 input,

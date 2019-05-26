@@ -57,15 +57,6 @@ app.post('/upload', uploader.single('file'),
                 }).catch(function(err) {
                     console.log(err);
                 });
-        // if (req.file) {
-        //     res.json({
-        //         success: true
-        //     });
-        // } else {
-        //     res.json({
-        //         success: false
-        //     });
-        // }
 });//uploader.single function c lose
 app.get('/get-image-info/:id', (req, res) => {
     db.getPopUpInfo(req.params.id).then(result => {
@@ -84,6 +75,35 @@ app.get('/get-image-info/:id', (req, res) => {
         }).catch(function(err) {
             console.log(err);
         });
-});
+});///app.get(get-image-info/:id) close.
+
+app.post('/addComment', (req, res) => {
+    console.log('this is req.body:', req.body);
+    let { comment, username, id } = req.body;
+    db.addComment( comment, username, id )
+        .then(result => {
+            const comment = {
+                    user_comment: username,
+                    comment: comment,
+                    image_id: id,
+                    comment_id: result.rows[0].comment_id,
+                    created_at: result.rows[0].created_at,
+                    success: true
+            };
+            console.log(comment);
+            res.json(comment);
+        }).catch(function(err) {
+            console.log(err);
+        });
+});//app.post('/addComment') close.
 
 app.listen(8080, () => console.log('!I vue js!'));
+// if (req.file) {
+//     res.json({
+//         success: true
+//     });
+// } else {
+//     res.json({
+//         success: false
+//     });
+// }

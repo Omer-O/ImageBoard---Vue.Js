@@ -16,10 +16,13 @@
             return {
                 xClicked: '',
                 imagePopUp: [],
-                //imageName: 'Buna'
-                //Render = the same as "new Vue" {{}} but INSIDE
-                //        THE SCRIPT of component in the HTML
-            }
+                commet: [],
+                addComment: {
+                    username: "",
+                    comment: "",
+                    id: this.imageClicked
+                }
+            }//returnData close.
         },//Data close
         mounted: function () {
             console.log('this is mounted of Vue component:', this);
@@ -35,8 +38,33 @@
         //  axios.get('/get-image-info', {
         //      imageClicked: this.imageClicked
         // })
-        }//mounted close
-    });// Vue component close
+        },//mounted close
+        methods: {
+            uploadComment: function(e) {
+                e.preventDefault();
+                console.log('uploadFile running!');
+
+                var formData = new FormData();
+                formData.append('username', this.addComment.username);
+                formData.append('comment', this.addComment.comment);
+                console.log('this is formData comment', this.addComment.comment);
+//until now recieving all information. but req.body is empty {}
+                var self = this;
+                axios.post('/addComment', formData)
+                     .then(function(resp){
+                         console.log('resp in POST/addComment', resp.data);
+                         self.comment.unshift({
+                            id: resp.data.id,
+                            comment: resp.data.comment,
+                            username: resp.data.username
+                        });
+                     }).catch(function (err) {
+                         console.log("error in axios POST Upload:", err);
+                     });//catch close.
+            }//uploadComment close.
+
+        }//methods close.
+    });// Vue component close.
 
     var vm = new Vue({
         el: '#main',
@@ -49,7 +77,7 @@
                 description:'',
                 username: '',
                 file: null
-            }//FORM closes
+             }//,FORM closes
         },//DATA close
 
         mounted: function() {

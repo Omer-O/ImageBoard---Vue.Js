@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Image-Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
 <body>
@@ -25,7 +26,7 @@
                  @click='toggleimageModal(image.id)'
             >
 
-                 <img :src="image.url">
+                 <img :src="image.url" width="500" height="300">
                  <h2> {{image.title}} </h2>
             </div>
         </div>
@@ -44,13 +45,13 @@ here will come all the HTML that belongs to the modal!! -->
         <div id="popup" class="overlay">
             <div class="pop-container">
                 <a class="close" href="#">&times;</a>
-                <img class="pop-img" :src="imagePopUp.url">
+                <img class="pop-img" :src="imagePopUp.url" width="300" height="200">
                 <h1>{{ imagePopUp.title }}</h1>
                 <h2>{{ imagePopUp.description }}</h2>
                 <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
-                <input class='pop-input' v-model='username' type="text" name="username">
-                <textarea class='pop-comment' v-model='comment' type="text" name="description" placeholder="comment"></textarea>
-                <button class="comment-btn" @click='upload-comment' name="button">SUBMIT</button>
+                <input class='pop-input' v-model='addComment.username' value="" type="text" name="username">
+                <input class='pop-comment' v-model='addComment.comment' value="" type="text" name="comment" placeholder="comment">
+                <button class="comment-btn" @click='uploadComment' name="button">SUBMIT</button>
             </div>
         </div>
     </script>

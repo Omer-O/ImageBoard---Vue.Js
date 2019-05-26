@@ -21,3 +21,12 @@ module.exports.addData = function addData(
 module.exports.getPopUpInfo = function getPopUpInfo(id) {
     return db.query(`SELECT * FROM images WHERE id=$1`, [id]);
 };//getInfo close.
+
+
+module.exports.addComment = function addComment(comment, username, imgId) {
+    return db.query(
+        `INSERT INTO comment (comment, username, image_id)
+         VALUES ($1, $2, $3) RETURNING created_at`,
+        [comment, username, imgId]
+    );
+};//addComment close.
