@@ -14,9 +14,8 @@
             //      because we want it to return an object.
             //      it handels the data same as in 'new Vue'!
             return {
-                xClicked: '',
                 imagePopUp: [],
-                commet: [],
+                comment: [],
                 addComment: {
                     username: "",
                     comment: "",
@@ -40,6 +39,11 @@
         // })
         },//mounted close
         methods: {
+            close: function() {
+                console.log('we are closing the image:');
+                this.$emit("closeimage");
+            },//close closes.
+            
             uploadComment: function(e) {
                 e.preventDefault();
                 console.log('uploadFile running!');
@@ -48,21 +52,20 @@
                 formData.append('username', this.addComment.username);
                 formData.append('comment', this.addComment.comment);
                 console.log('this is formData comment', this.addComment.comment);
-//until now recieving all information. but req.body is empty {}
+
                 var self = this;
-                axios.post('/addComment', formData)
+                axios.post('/addComment', this.addComment)
                      .then(function(resp){
-                         console.log('resp in POST/addComment', resp.data);
+                         console.log('this is resp of addcomment POST:', resp);
                          self.comment.unshift({
                             id: resp.data.id,
                             comment: resp.data.comment,
                             username: resp.data.username
-                        });
+                        }); console.log('resp in POST/addComment', self.comment);
                      }).catch(function (err) {
                          console.log("error in axios POST Upload:", err);
                      });//catch close.
             }//uploadComment close.
-
         }//methods close.
     });// Vue component close.
 
@@ -89,17 +92,12 @@
         }, //mounted close
 
         methods: {
+            closemodal : function () {
+                this.imageClicked = null
+            },//closemodal close.
+
             toggleimageModal: function(image) {
-                //#1 TRUE/FALSE
-                //this.conditionForModal = true;
-                    //here we put the opposite - so when we CLICK
-                    //the condition will set to true/false - depands
-                    //what we declaired in the view INSTANCE!
-                //#2
-                // Target image & store data by click image:
                 console.log('image:', image);
-                //target the imageClicked in the Vue INSTANCE data
-                //image reffers to the image that the user clicked.
                 this.imageClicked = image;
                 console.log('this is Vue INSTANCE:', this);
             },//toggleimageModal close.

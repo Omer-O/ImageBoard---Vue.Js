@@ -32,9 +32,10 @@
         </div>
 
         <image-modal
-                :name='name'
-                :image-clicked='imageClicked'
+                :name="name"
                 v-if="imageClicked"
+                :image-clicked="imageClicked"
+                @closeimage="closemodal"
                 >
         </image-modal>
     </div>
@@ -44,7 +45,7 @@
 here will come all the HTML that belongs to the modal!! -->
         <div id="popup" class="overlay">
             <div class="pop-container">
-                <a class="close" href="#">&times;</a>
+                <p class="close"  @click="close">&times;</p>
                 <img class="pop-img" :src="imagePopUp.url" width="300" height="200">
                 <h1>{{ imagePopUp.title }}</h1>
                 <h2>{{ imagePopUp.description }}</h2>
@@ -52,6 +53,14 @@ here will come all the HTML that belongs to the modal!! -->
                 <input class='pop-input' v-model='addComment.username' value="" type="text" name="username">
                 <input class='pop-comment' v-model='addComment.comment' value="" type="text" name="comment" placeholder="comment">
                 <button class="comment-btn" @click='uploadComment' name="button">SUBMIT</button>
+                <ul class="comment-container"
+                    v-if="comment"
+                    >
+                    <li v-for="comment in comment"
+                    >{{ comment.comment }}</li>
+                    <li>{{ comment.username }} {{comment.created_at}}</li>
+                </ul>
+                </div>
             </div>
         </div>
     </script>

@@ -78,11 +78,11 @@ app.get('/get-image-info/:id', (req, res) => {
 });///app.get(get-image-info/:id) close.
 
 app.post('/addComment', (req, res) => {
-    console.log('this is req.body:', req.body);
     let { comment, username, id } = req.body;
+    console.log('this is req.body:', req.body);
     db.addComment( comment, username, id )
         .then(result => {
-            const comment = {
+            const newComment = {
                     user_comment: username,
                     comment: comment,
                     image_id: id,
@@ -90,8 +90,8 @@ app.post('/addComment', (req, res) => {
                     created_at: result.rows[0].created_at,
                     success: true
             };
-            console.log(comment);
-            res.json(comment);
+            console.log(newComment);
+            res.json(newComment);
         }).catch(function(err) {
             console.log(err);
         });
