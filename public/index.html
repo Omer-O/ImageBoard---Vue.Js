@@ -54,11 +54,13 @@ here will come all the HTML that belongs to the modal!! -->
                 <input class='pop-comment' v-model='addComment.comment' value="" type="text" name="comment" placeholder="comment">
                 <button class="comment-btn" @click='uploadComment' name="button">SUBMIT</button>
                 <ul class="comment-container"
-                    v-if="comment"
                     >
-                    <li v-for="comment in comment"
-                    >{{ comment.comment }}</li>
-                    <li>{{ comment.username }} {{comment.created_at}}</li>
+                    <li v-for="comment in comment">
+                        {{ comment.comment }}
+                        {{ comment.username }} {{comment.created_at}}
+                    </li>
+                    <li>
+                    </li>
                 </ul>
                 </div>
             </div>

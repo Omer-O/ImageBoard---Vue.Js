@@ -40,34 +40,31 @@
         },//mounted close
         methods: {
             close: function() {
-                console.log('we are closing the image:');
+                //console.log('we are closing the image:');
                 this.$emit("closeimage");
             },//close closes.
-            
+
             uploadComment: function(e) {
                 e.preventDefault();
-                console.log('uploadFile running!');
+                //console.log('uploadFile running!');
 
                 var formData = new FormData();
                 formData.append('username', this.addComment.username);
                 formData.append('comment', this.addComment.comment);
-                console.log('this is formData comment', this.addComment.comment);
+                //console.log('this is formData comment', this.addComment.comment);
 
                 var self = this;
                 axios.post('/addComment', this.addComment)
                      .then(function(resp){
                          console.log('this is resp of addcomment POST:', resp);
-                         self.comment.unshift({
-                            id: resp.data.id,
-                            comment: resp.data.comment,
-                            username: resp.data.username
-                        }); console.log('resp in POST/addComment', self.comment);
+                         self.comment.unshift(resp.data);
+                        console.log('resp in POST/addComment', self.comment);
                      }).catch(function (err) {
                          console.log("error in axios POST Upload:", err);
                      });//catch close.
             }//uploadComment close.
         }//methods close.
-    });// Vue component close.
+    });//Vue component close.
 
     var vm = new Vue({
         el: '#main',
@@ -87,7 +84,7 @@
             var self = this;
             axios.get('/imageboard').then(function(resp) {
                     self.imageboard = resp.data;
-                    console.log('self.imageboard:', self.imageboard);
+                    //console.log('self.imageboard:', self.imageboard);
             });
         }, //mounted close
 
@@ -99,7 +96,7 @@
             toggleimageModal: function(image) {
                 console.log('image:', image);
                 this.imageClicked = image;
-                console.log('this is Vue INSTANCE:', this);
+                //console.log('this is Vue INSTANCE:', this);
             },//toggleimageModal close.
 
             handleFileChange: function(e) {

@@ -82,6 +82,7 @@ app.post('/addComment', (req, res) => {
     console.log('this is req.body:', req.body);
     db.addComment( comment, username, id )
         .then(result => {
+            console.log('this is results:', req.body);
             const newComment = {
                     user_comment: username,
                     comment: comment,
