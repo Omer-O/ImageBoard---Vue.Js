@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Image-Board</title>
+    <title>Tatoo Board</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/stylesheet.css">
 </head>
@@ -19,14 +19,15 @@
                 <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
             </form>
         </header>
-
+ <!-- @click='toggleimageModal(image.id)' -->
         <div class="board">
             <div class="card"
                  v-for='image in imageboard'
-                 @click='toggleimageModal(image.id)'
-            >
+
+            ><a :href="'#' + image.id">
 
                  <img :src="image.url" width="500" height="300">
+                 </a>
                  <h2> {{image.title}} </h2>
             </div>
         </div>

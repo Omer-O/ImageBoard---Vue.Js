@@ -23,7 +23,9 @@ module.exports.getPopUpInfo = function getPopUpInfo(id) {
 };//getInfo close.
 
 module.exports.getComment = function getComment(imageId) {
-    return db.query(`SELECT * FROM comment WHERE image_id=$1`, [imageId])
+    return db.query(`SELECT * FROM comment
+                     WHERE image_id=$1
+                     LIMIT 3`, [imageId])
 }
 module.exports.addComment = function addComment(comment, username, imgId) {
     return db.query(

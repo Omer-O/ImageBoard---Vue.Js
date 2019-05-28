@@ -5,7 +5,7 @@
         template: "#image-template",
         //template: = define the HTML for the modal in
                     //the HTML file and taregt the ID given.
-        props: ['name', 'imageClicked'],
+        props: ['name','imageClicked' ],
         //props = allow to accsses to the DATA of the "new Vue"
         //        what we pass to props is the property DATA
         //        that we want to accsses.
@@ -40,6 +40,7 @@
             close: function() {
                 //console.log('we are closing the image:');
                 this.$emit("closeimage");
+                location.hash = "";
             },//close closes.
 
             uploadComment: function(e) {
@@ -61,13 +62,25 @@
                          console.log("error in axios POST Upload:", err);
                      });//catch close.
             }//uploadComment close.
-        }//methods close.
+        },//methods close.
+        watch: {
+           imageClicked: function() {
+               console.log('I watch imageClicked in watch');
+               var self = this;
+                   axios.get('/get-image-info/' + this.imageClicked)
+                       .then(function(resp) {
+                           self.imagePopUp = resp.data[0];
+                           self.comment = resp.data[1];
+                       });
+           }//watch/imageClicked closes.
+       }//watch close.
     });//Vue component close.
 
     var vm = new Vue({
         el: '#main',
         data: {
-            imageClicked: '',
+            imageClicked: location.hash.slice(1),
+        //    imageClicked: '',
             name: 'omer',
             imageboard: [],
             form: {
@@ -85,6 +98,11 @@
                     self.comment = resp.data;
                     //console.log('self.imageboard:', self.imageboard);
             });
+            addEventListener('hashchange', function() {
+                console.log('hash is active ');
+                self.imageClicked = location.hash.slice(1);
+                console.log('hash was changed to ', self.imageClicked);
+            });
         }, //mounted close
 
         methods: {
@@ -95,6 +113,7 @@
             toggleimageModal: function(image) {
                 console.log('image:', image);
                 this.imageClicked = image;
+                location.hash = '';
                 //console.log('this is Vue INSTANCE:', this);
             },//toggleimageModal close.
 
