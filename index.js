@@ -58,20 +58,29 @@ app.post('/upload', uploader.single('file'),
                     console.log(err);
                 });
 });//uploader.single function c lose
+
 app.get('/get-image-info/:id', (req, res) => {
-    db.getPopUpInfo(req.params.id).then(result => {
+    let id = req.params.id;
+    db.getPopUpInfo(id).then(result => {
         let { description, title, url, username, created_at } =
             result.rows[0];
-                const popUp = {
-                    description: description,
-                    title: title,
-                    url: url,
-                    username: username,
-                    created_at: created_at,
-                    success: true
-                    }
+            console.log('log redult of get comment:', result);
+            const popUp = {
+                description: description,
+                title: title,
+                url: url,
+                username: username,
+                created_at: created_at,
+                success: true
+                }
+            db.getComment(id).then(result  => {
+                    const comments = result.rows;
                     console.log('Im popUp:', popUp);
-                    res.json(popUp);
+                    console.log('Im comments:', comments);
+                    res.json([
+                        popUp, comments
+                    ]);
+            })
         }).catch(function(err) {
             console.log(err);
         });
@@ -87,7 +96,7 @@ app.post('/addComment', (req, res) => {
                     user_comment: username,
                     comment: comment,
                     image_id: id,
-                    comment_id: result.rows[0].comment_id,
+                    comment_id: result.rows[0].id,
                     created_at: result.rows[0].created_at,
                     success: true
             };
@@ -99,12 +108,3 @@ app.post('/addComment', (req, res) => {
 });//app.post('/addComment') close.
 
 app.listen(8080, () => console.log('!I vue js!'));
-// if (req.file) {
-//     res.json({
-//         success: true
-//     });
-// } else {
-//     res.json({
-//         success: false
-//     });
-// }

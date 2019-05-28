@@ -30,13 +30,11 @@
         var self = this;
             axios.get('/get-image-info/' + this.imageClicked)
                 .then(function(resp) {
-                    self.imagePopUp = resp.data;
-                    //console.log('self.imagePopUp:', self.imagePopUp);
+                    self.imagePopUp = resp.data[0];
+                    self.comment = resp.data[1];
+                    // console.log('self.imagePopUp:', self.imagePopUp);
+                    // console.log('self.comment:', self.comment);
                 });
-        //  #2:
-        //  axios.get('/get-image-info', {
-        //      imageClicked: this.imageClicked
-        // })
         },//mounted close
         methods: {
             close: function() {
@@ -84,6 +82,7 @@
             var self = this;
             axios.get('/imageboard').then(function(resp) {
                     self.imageboard = resp.data;
+                    self.comment = resp.data;
                     //console.log('self.imageboard:', self.imageboard);
             });
         }, //mounted close
@@ -123,7 +122,8 @@
                             url: resp.data.url,
                             description: resp.data.description,
                             title: resp.data.title,
-                            username: resp.data.username
+                            username: resp.data.username,
+                            //comment: resp.data.id
                         });
                      }).catch(function (err) {
                          console.log("error in axios POST Upload:", err);

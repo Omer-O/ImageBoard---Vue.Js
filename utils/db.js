@@ -22,11 +22,13 @@ module.exports.getPopUpInfo = function getPopUpInfo(id) {
     return db.query(`SELECT * FROM images WHERE id=$1`, [id]);
 };//getInfo close.
 
-
+module.exports.getComment = function getComment(imageId) {
+    return db.query(`SELECT * FROM comment WHERE image_id=$1`, [imageId])
+}
 module.exports.addComment = function addComment(comment, username, imgId) {
     return db.query(
         `INSERT INTO comment (comment, username, image_id)
-         VALUES ($1, $2, $3) RETURNING created_at`,
+         VALUES ($1, $2, $3) RETURNING created_at, id`,
         [comment, username, imgId]
     );
 };//addComment close.

@@ -45,26 +45,23 @@
 here will come all the HTML that belongs to the modal!! -->
         <div id="popup" class="overlay">
             <div class="pop-container">
-                <p class="close"  @click="close">&times;</p>
+                <p class="close" @click="close">&times;</p>
                 <img class="pop-img" :src="imagePopUp.url" width="300" height="200">
                 <h1>{{ imagePopUp.title }}</h1>
                 <h2>{{ imagePopUp.description }}</h2>
                 <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
-                <input class='pop-input' v-model='addComment.username' value="" type="text" name="username">
+                <input class='pop-input' v-model='addComment.username' value="" type="text" name="username" placeholder="user-name">
                 <input class='pop-comment' v-model='addComment.comment' value="" type="text" name="comment" placeholder="comment">
                 <button class="comment-btn" @click='uploadComment' name="button">SUBMIT</button>
                 <ul class="comment-container"
-                    >
-                    <li v-for="comment in comment">
-                        {{ comment.comment }}
-                        {{ comment.username }} {{comment.created_at}}
-                    </li>
-                    <li>
-                    </li>
+                    v-for="comment in comment"
+                >
+                    <li>{{ comment.comment }}</li>
+                    <li>{{ comment.username }} {{comment.created_at}}</li>
                 </ul>
                 </div>
-            </div>
         </div>
+        <!-- </div> -->
     </script>
 
     <script src="/js/vue.js"></script>
