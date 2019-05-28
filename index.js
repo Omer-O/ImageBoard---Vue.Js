@@ -64,7 +64,7 @@ app.get('/get-image-info/:id', (req, res) => {
     db.getPopUpInfo(id).then(result => {
         let { description, title, url, username, created_at } =
             result.rows[0];
-            console.log('log redult of get comment:', result);
+            //console.log('log result of get comment:', result);
             const popUp = {
                 description: description,
                 title: title,
@@ -75,8 +75,6 @@ app.get('/get-image-info/:id', (req, res) => {
                 }
             db.getComment(id).then(result  => {
                     const comments = result.rows;
-                    console.log('Im popUp:', popUp);
-                    console.log('Im comments:', comments);
                     res.json([
                         popUp, comments
                     ]);
@@ -85,7 +83,17 @@ app.get('/get-image-info/:id', (req, res) => {
             console.log(err);
         });
 });///app.get(get-image-info/:id) close.
-
+// GET moreImages
+app.get("/more-images/:id", (req, res) => {
+    db.getMoreInfo(req.params.id)
+        .then(result => {
+            // res,json to send DATA back to the front as a response
+            res.json(result.rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
 app.post('/addComment', (req, res) => {
     let { comment, username, id } = req.body;
     console.log('this is req.body:', req.body);

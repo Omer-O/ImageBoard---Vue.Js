@@ -10,7 +10,7 @@
 
 
         <header>
-            <h1>{{ name }}</h1>
+            <h1>TATOO BOARD - ink it</h1>
             <form>
                 <input v-model='form.title' type="text" name="title" placeholder="title">
                 <input v-model='form.description' type="text" name="description" placeholder="image description">
@@ -19,19 +19,18 @@
                 <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
             </form>
         </header>
- <!-- @click='toggleimageModal(image.id)' -->
+
         <div class="board">
             <div class="card"
                  v-for='image in imageboard'
-
-            ><a :href="'#' + image.id">
-
-                 <img :src="image.url" width="500" height="300">
-                 </a>
+            >
+            <a :href="'#' + image.id">
+                 <img :src="image.url" width="400" height="200">
+            </a>
                  <h2> {{image.title}} </h2>
             </div>
         </div>
-
+        <button class="get-btn" v-if="getMore" @click="getMoreImages" type="button" name="button">MORE</button>
         <image-modal
                 :name="name"
                 v-if="imageClicked"
@@ -40,29 +39,26 @@
                 >
         </image-modal>
     </div>
-    <!-- :image-pop-up='imagePopUp' -->
+
     <script id="image-template" type="text/x-template">
-<!--the id is important - we need to pass it back to the modal!!
-here will come all the HTML that belongs to the modal!! -->
-        <div id="popup" class="overlay">
+        <div class="overlay">
             <div class="pop-container">
                 <p class="close" @click="close">&times;</p>
                 <img class="pop-img" :src="imagePopUp.url" width="300" height="200">
                 <h1>{{ imagePopUp.title }}</h1>
                 <h2>{{ imagePopUp.description }}</h2>
                 <h4>Up loaded by {{ imagePopUp.username }} on {{ imagePopUp.created_at }}</h4>
-                <input class='pop-input' v-model='addComment.username' value="" type="text" name="username" placeholder="user-name">
+                <input class='pop-input' v-model='addComment.username' value="" type="text" name="username" placeholder="name">
                 <input class='pop-comment' v-model='addComment.comment' value="" type="text" name="comment" placeholder="comment">
                 <button class="comment-btn" @click='uploadComment' name="button">SUBMIT</button>
                 <ul class="comment-container"
                     v-for="comment in comment"
                 >
-                    <li>{{ comment.comment }}</li>
-                    <li>{{ comment.username }} {{comment.created_at}}</li>
+                    <li>comment: {{ comment.comment }}</li>
+                    <li>by: {{ comment.user_comment }} on: {{comment.created_at}}</li>
                 </ul>
                 </div>
         </div>
-        <!-- </div> -->
     </script>
 
     <script src="/js/vue.js"></script>
