@@ -14,7 +14,7 @@ module.exports.getInfo = function getInfo() {
        LIMIT 1)
        AS lowest_id FROM images
        ORDER BY id DESC
-       LIMIT 6;`
+       LIMIT 9;`
        );
 };//getInfo close.
 module.exports.getMoreInfo = function getMoreInfo(id) {
@@ -26,7 +26,7 @@ module.exports.getMoreInfo = function getMoreInfo(id) {
            AS lowest_id FROM images
            WHERE id < $1
            ORDER BY id DESC
-           LIMIT 6;`,
+           LIMIT 9;`,
            [id]
     );
 };//getMoreInfo close.

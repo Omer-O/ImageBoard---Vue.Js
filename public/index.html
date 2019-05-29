@@ -10,11 +10,11 @@
 
 
         <header>
-            <h1>TATOO BOARD - ink it</h1>
+            <h1>INK IT - tatoo board</h1>
             <form>
-                <input v-model='form.title' type="text" name="title" placeholder="title">
-                <input v-model='form.description' type="text" name="description" placeholder="image description">
-                <input v-model='form.username' type="text" name="username" placeholder="enter user name">
+                <input v-model='form.title' type="text" name="title" placeholder="title" required minlength="1" maxlength="20">
+                <input v-model='form.description' type="text" name="description" placeholder="image description" required minlength="1" maxlength="20">
+                <input v-model='form.username' type="text" name="username" placeholder="enter user name" required minlength="1" maxlength="20">
                 <input class='browse-btn' type="file" name="file" accept='image/*' @change='handleFileChange'>
                 <button class="upload-btn" @click='uploadFile' name="button">UPLOAD</button>
             </form>
@@ -30,7 +30,9 @@
                  <h2> {{image.title}} </h2>
             </div>
         </div>
-        <button class="get-btn" v-if="getMore" @click="getMoreImages" type="button" name="button">MORE</button>
+        <div class="get-btn">
+            <button v-if="getMore" @click="getMoreImages" type="button" name="button">MORE</button>
+        </div>
         <image-modal
                 :name="name"
                 v-if="imageClicked"
@@ -54,8 +56,10 @@
                 <ul class="comment-container"
                     v-for="comment in comment"
                 >
-                    <li>comment: {{ comment.comment }}</li>
-                    <li>by: {{ comment.user_comment }} on: {{comment.created_at}}</li>
+                    <li><strong>{{ comment.username }}:</strong>
+                         {{ comment.comment }}
+                    </li>
+                    <li><strong> on: </strong> {{comment.created_at}}</li>
                 </ul>
                 </div>
         </div>

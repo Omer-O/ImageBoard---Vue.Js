@@ -101,7 +101,7 @@ app.post('/addComment', (req, res) => {
         .then(result => {
             console.log('this is results:', req.body);
             const newComment = {
-                    user_comment: username,
+                    username: username,
                     comment: comment,
                     image_id: id,
                     comment_id: result.rows[0].id,
